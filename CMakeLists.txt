@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.20.4)
 
 project(tcpp VERSION 0.1.0)
 
@@ -29,12 +29,19 @@ if(MSVC)
     CMAKE_CXX_FLAGS_DEBUG
     "${CMAKE_CXX_FLAGS_DEBUG}")
 
-  add_definitions( /std:c++latest )
+  #add_compile_options( /std:c++latest )
+  add_compile_options( /std:c++20 )
+  #add_compile_options( -std=c++2a )
+  #set(CMAKE_CXX_STANDARD 20)
 elseif(APPLE)
   add_definitions( -Wall -o2 -g -ggdb -DSOCKLEN_T=socklen_t -Wc++17-extensions -stdlib=libc++ )
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z")
 else()
-  add_definitions( -Wall -std=c++17 -o2 -g -ggdb -fconcepts -DSOCKLEN_T=socklen_t )
+  add_compile_options( 
+    -g -ggdb 
+    -Wall -W 
+    -std=c++2a -fconcepts 
+    )
 endif()
 
 
